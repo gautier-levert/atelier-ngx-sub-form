@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
+
+  <app-shop-item-form fxFlexAlign="stretch" [(shopItem)]="item">
+  </app-shop-item-form>
+
+  <mat-card>
+    <h3>Data</h3>
+    <pre>{{item | json}}</pre>
+  </mat-card>
+</div>

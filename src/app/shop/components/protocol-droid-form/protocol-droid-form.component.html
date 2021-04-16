@@ -1,0 +1,40 @@
+<section fxLayout="column" fxLayoutAlign="start stretch"
+         [formGroup]="formGroup">
+
+  <fieldset fxLayout="column" fxLayoutAlign="start stretch"
+            [formArrayName]="formControlNames.spokenLanguages">
+
+    <legend>Spoken languages</legend>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+         *ngFor="let languageCtrl of formGroupControls.spokenLanguages.controls; let index = index">
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Weapon</mat-label>
+        <mat-select [formControlName]="index">
+          <mat-option *ngFor="let language of languages" [value]="language">
+            {{ language }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="languageCtrl.errors?.required">
+          Language should be defined
+        </mat-error>
+      </mat-form-field>
+
+      <button fxFlex="noshrink" mat-mini-fab color="warn"
+              (click)="removeLanguage(index)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </div>
+
+    <button fxFlexAlign="start"
+            mat-raised-button
+            color="primary"
+            (click)="addLanguage()">
+      Add a language
+    </button>
+
+  </fieldset>
+
+</section>

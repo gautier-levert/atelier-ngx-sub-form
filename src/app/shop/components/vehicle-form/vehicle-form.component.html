@@ -1,0 +1,54 @@
+<section fxLayout="column" fxLayoutAlign="start stretch">
+
+  <mat-form-field>
+    <mat-label>Vehicle type</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let type of vehicleTypes" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Color</mat-label>
+    <input matInput type="color">
+  </mat-form-field>
+
+  <mat-checkbox>
+    Can fire
+  </mat-checkbox>
+
+  <fieldset fxLayout="column" fxLayoutAlign="start stretch">
+
+    <legend>Crew members</legend>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+
+      <app-crew-member-form fxFlex="grow">
+      </app-crew-member-form>
+
+      <button fxFlex="noshrink" mat-mini-fab color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </div>
+
+    <button fxFlexAlign="start"
+            mat-raised-button
+            color="primary">
+      Add a crew member
+    </button>
+
+  </fieldset>
+
+  <ng-container>
+
+    <app-spaceship-form>
+    </app-spaceship-form>
+
+    <app-speeder-form>
+    </app-speeder-form>
+
+  </ng-container>
+
+</section>

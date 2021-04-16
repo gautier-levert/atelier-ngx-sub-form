@@ -1,0 +1,16 @@
+<section fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+         [formGroup]="formGroup">
+
+  <mat-form-field fxFlex="grow">
+    <mat-label>Firstname</mat-label>
+    <input matInput type="text"
+           [formControlName]="formControlNames.firstName">
+  </mat-form-field>
+
+  <mat-form-field fxFlex="grow">
+    <mat-label>Lastname</mat-label>
+    <input matInput type="text"
+           [formControlName]="formControlNames.lastName">
+  </mat-form-field>
+
+</section>

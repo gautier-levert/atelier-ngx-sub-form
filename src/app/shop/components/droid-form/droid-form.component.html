@@ -1,0 +1,51 @@
+<section fxLayout="column" fxLayoutAlign="start stretch"
+         [formGroup]="formGroup">
+
+  <mat-form-field>
+    <mat-label>Color</mat-label>
+    <input matInput type="color"
+           [formControlName]="formControlNames.color">
+  </mat-form-field>
+
+  <mat-form-field fxFlex="grow">
+    <mat-label>Name</mat-label>
+    <input matInput type="text"
+           [formControlName]="formControlNames.name">
+    <mat-error *ngIf="formGroupErrors?.name?.required">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Droid type</mat-label>
+    <mat-select [formControlName]="formControlNames.droidType">
+      <mat-option *ngFor="let type of droidTypes" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="formGroupErrors?.droidType?.required">
+      Droid type is required
+    </mat-error>
+  </mat-form-field>
+
+  <ng-container [ngSwitch]="formGroupValues.droidType">
+
+    <app-assassin-droid-form *ngSwitchCase="'assassin'"
+                             [formControlName]="formControlNames.assassin">
+    </app-assassin-droid-form>
+
+    <app-astromech-droid-form *ngSwitchCase="'astromech'"
+                              [formControlName]="formControlNames.astromech">
+    </app-astromech-droid-form>
+
+    <app-medical-droid-form *ngSwitchCase="'medical'"
+                            [formControlName]="formControlNames.medical">
+    </app-medical-droid-form>
+
+    <app-protocol-droid-form *ngSwitchCase="'protocol'"
+                             [formControlName]="formControlNames.protocol">
+    </app-protocol-droid-form>
+
+  </ng-container>
+
+</section>

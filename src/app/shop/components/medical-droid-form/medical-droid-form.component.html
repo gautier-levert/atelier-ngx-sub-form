@@ -1,0 +1,16 @@
+<section fxLayout="column" fxLayoutAlign="start stretch"
+         [formGroup]="formGroup">
+
+  <mat-checkbox [formControlName]="formControlNames.canHealHumans">
+    Can heal humans
+  </mat-checkbox>
+
+  <mat-checkbox [formControlName]="formControlNames.canFixRobots">
+    Can fix robots
+  </mat-checkbox>
+
+  <mat-error *ngIf="formGroupErrors?.formGroup?.mustHealSomething">
+    Medical should be able to heal human or fix robots
+  </mat-error>
+
+</section>

@@ -1,0 +1,17 @@
+<mat-toolbar color="primary"
+             fxLayout="row" fxLayoutAlign="start center"
+             class="header">
+  <a fxFlex="initial" [routerLink]="['/']" class="header__link header__link--hidden">
+    <h2>SpaceShop</h2>
+  </a>
+  <div fxFlex="noshrink"></div>
+  <nav fxFlex="initial" mat-tab-nav-bar backgroundColor="primary">
+    <a mat-tab-link [routerLink]="['/', 'shop']"
+       routerLinkActive #rla=routerLinkActive
+       [active]="rla.isActive">
+      Shop
+    </a>
+  </nav>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

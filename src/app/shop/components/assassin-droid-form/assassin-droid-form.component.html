@@ -1,0 +1,44 @@
+<section fxLayout="column" fxLayoutAlign="start stretch"
+         [formGroup]="formGroup">
+
+  <fieldset fxLayout="column" fxLayoutAlign="start stretch"
+            [formArrayName]="formControlNames.weapons">
+
+    <legend>Weapons</legend>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+         *ngFor="let weaponCtrl of formGroupControls.weapons.controls; let index = index">
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Weapon</mat-label>
+        <mat-select [formControlName]="index">
+          <mat-option *ngFor="let weapon of weapons" [value]="weapon">
+            {{ weapon }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="weaponCtrl.errors?.required">
+          Weapon type must be selected
+        </mat-error>
+      </mat-form-field>
+
+      <button fxFlex="noshrink" mat-mini-fab color="warn"
+              (click)="removeWeapon(index)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </div>
+
+    <button fxFlexAlign="start"
+            mat-raised-button
+            color="primary"
+            (click)="addWeapon()">
+      Add a weapon
+    </button>
+
+  </fieldset>
+
+  <mat-error *ngIf="formGroupErrors?.formGroup?.weaponsLength">
+    Assassin droid should have at least 2 weapons
+  </mat-error>
+
+</section>

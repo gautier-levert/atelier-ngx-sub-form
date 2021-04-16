@@ -1,0 +1,83 @@
+<div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+  <mat-card class="form"
+            fxFlex="noshrink"
+            fxLayout="column" fxLayoutAlign="start stretch"
+            [formGroup]="formGroup">
+
+    <h3>Form</h3>
+
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput type="text"
+             [formControlName]="formControlNames.title">
+      <mat-error *ngIf="formGroupErrors?.title?.required">
+        Title is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Image URL</mat-label>
+      <input matInput type="url"
+             [formControlName]="formControlNames.imageUrl">
+      <mat-error *ngIf="formGroupErrors?.imageUrl?.pattern">
+        Invalid URL format
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput type="number"
+             [formControlName]="formControlNames.price">
+      <mat-error *ngIf="formGroupErrors?.price?.required">
+        Price is required
+      </mat-error>
+      <mat-error *ngIf="formGroupErrors?.price?.min">
+        Price should be positive
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Item type</mat-label>
+      <mat-select [formControlName]="formControlNames.itemType">
+        <mat-option *ngFor="let type of itemTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGroupErrors?.itemType?.required">
+        Item type is required
+      </mat-error>
+    </mat-form-field>
+
+    <ng-container [ngSwitch]="formGroupValues.itemType">
+
+      <app-vehicle-form *ngSwitchCase="'vehicle'">
+      </app-vehicle-form>
+
+      <app-droid-form *ngSwitchCase="'droid'"
+                      [formControlName]="formControlNames.droid">
+      </app-droid-form>
+
+    </ng-container>
+
+    <button fxFlexAlign="end"
+            mat-raised-button
+            color="primary"
+            (click)="manualSave()">
+      Save
+    </button>
+
+  </mat-card>
+
+  <mat-card class="debug" fxFlex="noshrink">
+
+    <h3>Data</h3>
+
+    <pre>{{ formGroupValues | json }}</pre>
+
+    <h3>Errors</h3>
+
+    <pre>{{ formGroupErrors | json }}</pre>
+  </mat-card>
+
+</div>
+

@@ -1,0 +1,11 @@
+.header {
+  margin-bottom: 20px;
+
+  &__link {
+
+    &--hidden {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
