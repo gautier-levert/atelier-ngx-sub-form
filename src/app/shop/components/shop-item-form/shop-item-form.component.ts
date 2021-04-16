@@ -13,6 +13,9 @@ import {Language} from '../../../domain/droid/protocol/language.enum';
 import {ProtocolDroid} from '../../../domain/droid/protocol/protocol-droid';
 import {ShopItem} from '../../../domain/shop-item';
 import {ShopItemType} from '../../../domain/shop-item-type.enum';
+import {Spaceship} from '../../../domain/vehicle/spaceship/spaceship';
+import {Speeder} from '../../../domain/vehicle/speeder/speeder';
+import {VehicleType} from '../../../domain/vehicle/vehicle-type.enum';
 import {DroidForm} from '../../form/droid-form';
 import {ShopItemForm} from '../../form/shop-item-form';
 
@@ -22,8 +25,6 @@ import {ShopItemForm} from '../../form/shop-item-form';
   styleUrls: ['./shop-item-form.component.scss']
 })
 export class ShopItemFormComponent extends NgxRootFormComponent<ShopItem, ShopItemForm> {
-
-  // TODO
 
   itemTypes = Object.values(ShopItemType);
 
@@ -54,6 +55,7 @@ export class ShopItemFormComponent extends NgxRootFormComponent<ShopItem, ShopIt
       itemType: new FormControl(null, {
         validators: [Validators.required]
       }),
+      vehicle: new FormControl(null),
       droid: new FormControl(null),
     };
   }
@@ -137,6 +139,7 @@ export class ShopItemFormComponent extends NgxRootFormComponent<ShopItem, ShopIt
       price: (obj?.price ?? defaultValues?.price ?? null) as number,
       itemType: (obj?.itemType ?? defaultValues?.itemType ?? null) as ShopItemType,
       droid: droidForm,
+      vehicle: null,
     };
   }
 
@@ -189,7 +192,30 @@ export class ShopItemFormComponent extends NgxRootFormComponent<ShopItem, ShopIt
         }
         break;
       case ShopItemType.VEHICLE:
-        // TODO
+        switch (formValue.vehicle?.vehicleType) {
+          case VehicleType.SPACESHIP:
+            return new Spaceship(
+              this.dataValue?.id ?? uuid(),
+              formValue.title,
+              formValue.imageUrl,
+              formValue.price,
+              formValue.vehicle.color,
+              formValue.vehicle.canFire,
+              formValue.vehicle.crewMembers,
+              (formValue.vehicle?.spaceship?.wingCount) as number,
+            );
+          case VehicleType.SPEEDER:
+            return new Speeder(
+              this.dataValue?.id ?? uuid(),
+              formValue.title,
+              formValue.imageUrl,
+              formValue.price,
+              formValue.vehicle.color,
+              formValue.vehicle.canFire,
+              formValue.vehicle.crewMembers,
+              (formValue.vehicle?.speeder?.maximumSpeed) as number,
+            );
+        }
         break;
     }
     return null;

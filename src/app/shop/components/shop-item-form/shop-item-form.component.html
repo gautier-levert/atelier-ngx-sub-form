@@ -50,7 +50,8 @@
 
     <ng-container [ngSwitch]="formGroupValues.itemType">
 
-      <app-vehicle-form *ngSwitchCase="'vehicle'">
+      <app-vehicle-form *ngSwitchCase="'vehicle'"
+                        [formControlName]="formControlNames.vehicle">
       </app-vehicle-form>
 
       <app-droid-form *ngSwitchCase="'droid'"

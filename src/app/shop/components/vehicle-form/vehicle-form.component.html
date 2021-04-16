@@ -1,8 +1,9 @@
-<section fxLayout="column" fxLayoutAlign="start stretch">
+<section fxLayout="column" fxLayoutAlign="start stretch"
+         [formGroup]="formGroup">
 
   <mat-form-field>
     <mat-label>Vehicle type</mat-label>
-    <mat-select>
+    <mat-select [formControlName]="formControlNames.vehicleType">
       <mat-option *ngFor="let type of vehicleTypes" [value]="type">
         {{ type }}
       </mat-option>
@@ -11,23 +12,28 @@
 
   <mat-form-field>
     <mat-label>Color</mat-label>
-    <input matInput type="color">
+    <input matInput type="color"
+           [formControlName]="formControlNames.color">
   </mat-form-field>
 
-  <mat-checkbox>
+  <mat-checkbox [formControlName]="formControlNames.canFire">
     Can fire
   </mat-checkbox>
 
-  <fieldset fxLayout="column" fxLayoutAlign="start stretch">
+  <fieldset fxLayout="column" fxLayoutAlign="start stretch"
+            [formArrayName]="formControlNames.crewMembers">
 
     <legend>Crew members</legend>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+         *ngFor="let crewMemberCtrl of formGroupControls.crewMembers.controls; let index = index">
 
-      <app-crew-member-form fxFlex="grow">
+      <app-crew-member-form fxFlex="grow"
+                            [formControlName]="index">
       </app-crew-member-form>
 
-      <button fxFlex="noshrink" mat-mini-fab color="warn">
+      <button fxFlex="noshrink" mat-mini-fab color="warn"
+              (click)="removeCrewMember(index)">
         <mat-icon>delete</mat-icon>
       </button>
 
@@ -35,18 +41,21 @@
 
     <button fxFlexAlign="start"
             mat-raised-button
-            color="primary">
+            color="primary"
+            (click)="addCrewMember()">
       Add a crew member
     </button>
 
   </fieldset>
 
-  <ng-container>
+  <ng-container [ngSwitch]="formGroupValues.vehicleType">
 
-    <app-spaceship-form>
+    <app-spaceship-form *ngSwitchCase="'spaceship'"
+                        [formControlName]="formControlNames.spaceship">
     </app-spaceship-form>
 
-    <app-speeder-form>
+    <app-speeder-form *ngSwitchCase="'speeder'"
+                      [formControlName]="formControlNames.speeder">
     </app-speeder-form>
 
   </ng-container>
